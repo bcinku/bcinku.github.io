@@ -2,9 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "node:path";
 
-// A root Pages site requires both parts to match: bcin/bcin.github.io.
-// A repository named bcin.github.io under another account is still a project
-// site and must retain its /bcinku.github.io/ path.
+// A root Pages site requires both parts to match: bcinku/bcinku.github.io.
+// This avoids accidentally treating a similarly named project site as root.
 const [owner = "bcinku", repository = "bcinku.github.io"] =
   process.env.GITHUB_REPOSITORY?.split("/") || [];
 const isRootPagesSite = repository === `${owner}.github.io`;

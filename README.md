@@ -21,8 +21,8 @@ The landing-page card automatically links to `/articles/your-new-slug/`.
 
 GitHub Actions builds and publishes the site whenever changes are pushed to `main`.
 
-The intended production URL is [https://bcin.github.io/](https://bcin.github.io/). GitHub only gives that root URL to a repository owned by the `bcin` account or organization and named `bcin.github.io` — that is, `github.com/bcin/bcin.github.io`.
+The production URL is [https://bcinku.github.io/](https://bcinku.github.io/). The repository must be owned by the `bcinku` organization and named `bcinku.github.io` — that is, `github.com/bcinku/bcinku.github.io`.
 
-If the repository remains under the `bcinku` owner as `github.com/bcinku/bcin.github.io`, GitHub treats it as a project site and its correct URL is `https://bcinku.github.io/bcin.github.io/`. The Vite configuration detects either form and uses the correct asset path.
+If the repository has another name, GitHub treats it as a project site and adds that repository name to the URL. The Vite configuration detects either form and uses the correct asset path.
 
 This is entirely static: no database, API, backend host, or environment variables are required.
