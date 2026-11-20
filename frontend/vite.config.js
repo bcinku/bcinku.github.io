@@ -2,11 +2,13 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "node:path";
 
-// A root GitHub Pages repository is named bcinku.github.io, so its assets
-// and static article links must be emitted from `/`, not `/bcinku/`.
-const repository =
-  process.env.GITHUB_REPOSITORY?.split("/")[1] || "bcin.github.io";
-const pagesBase = repository.endsWith(".github.io") ? "/" : `/${repository}/`;
+// A root Pages site requires both parts to match: bcin/bcin.github.io.
+// A repository named bcin.github.io under another account is still a project
+// site and must retain its /bcinku.github.io/ path.
+const [owner = "bcinku", repository = "bcinku.github.io"] =
+  process.env.GITHUB_REPOSITORY?.split("/") || [];
+const isRootPagesSite = repository === `${owner}.github.io`;
+const pagesBase = isRootPagesSite ? "/" : `/${repository}/`;
 
 export default defineConfig({
   plugins: [react()],
