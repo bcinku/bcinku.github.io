@@ -1,28 +1,24 @@
-# BCIKU web application
+# BCIN website
 
-## Local development
-
-```bash
-npm install
-cp backend/.env.example backend/.env
-# Create the database and tables, then add an admin as noted in backend/db/schema.sql
-mysql -u root -p < backend/db/schema.sql
-npm run dev:api       # API: http://localhost:4000
-npm run dev           # site: http://localhost:5173
-```
-
-Set `VITE_API_URL=http://localhost:4000/api` if the frontend and API do not use their default local ports.
+## Run locally
 
 ```bash
-npm run build
-npm test
+npm ci
+npm run dev
 ```
 
-## Production and GitHub Pages
+Open the address shown by Vite (normally `http://localhost:5173`). Create a production build with `npm run build`.
 
-1. Deploy `backend/` to a Node-capable host with a managed MySQL database. Set the variables in `backend/.env.example`, including a long `JWT_SECRET` and `FRONTEND_URL` equal to the published Pages URL.
-2. In the GitHub repository, enable **Settings → Pages → GitHub Actions**.
-3. Add a repository variable named `VITE_API_URL`, for example `https://api.example.edu.np/api`.
-4. Push to `main`. The workflow publishes the static frontend at `https://<account>.github.io/bcinku/`, including the login at `/bcinku/admin-panel/`. If the repository is named `<account>.github.io`, GitHub publishes it at the shorter `https://<account>.github.io/` address instead. A custom domain may be configured in GitHub Pages settings.
+## Add a news article
 
-GitHub Pages cannot run Node.js or MySQL. The public site is deployed there; the CMS API must remain on the separate Node hosting service.
+1. Add its title, date, excerpt, and body to `frontend/src/content/articles.js`.
+2. Copy `frontend/articles/template/` to `frontend/articles/your-new-slug/`.
+3. Add that new HTML file to `frontend/vite.config.js` under `build.rollupOptions.input`.
+
+The landing-page card automatically links to `/articles/your-new-slug/`.
+
+## Deploy
+
+GitHub Actions builds and publishes the site whenever changes are pushed to `main`. This repository is named `bcinku.github.io`, so the production URL is [https://bcinku.github.io/](https://bcinku.github.io/). No subpath is used.
+
+This is entirely static: no database, API, backend host, or environment variables are required.
